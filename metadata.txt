@@ -7,69 +7,36 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=GPX Segment Importer
+name=IGC Importer
 qgisMinimumVersion=3.0
-description=This plugin imports an GPX file and creates short line segments between the track points
-version=2.5
-author=Simon Gröchenig @ Salzburg Research
-email=simon.groechenig@salzburgresearch.at
+description=This plugin imports an IGC file and creates short line segments between the track points
+version=1.0
+author=Martin Marmsoler
+email=martin.marmsoler@gmail.com
 
-about=This plugin imports an GPX file and creates short line segments between the track points. Features include:
+about=This plugin imports an IGC file and creates short line segments between the track points. 
+	This plugin bases on the gpx-segment-importer from Simon Groe (https://github.com/SGroe/gpx-segment-importer)
+	Features include:
     * Available as QGIS dialog in toolbar and also as QGIS algorithm for usage in processing
     * [dialog, algorithm] Read all attributes available from each track point at the segment start and/or end. This includes the timestamp and the elevation as well as any other attributes added to a track point.
-    * [dialog] Select one or multiple GPX files with the same data structure at once.
+    * [dialog] Select one or multiple IGC files with the same data structure at once.
     * [dialog] To gain full control over the data, you can edit the attribute table before creating the segment layer. You can exclude attributes, modify the attribute label and change the data type (integer, double, boolean or string) if the automatic type detection failed, e.g. at numeric data that contains “Null” or “None” values. Also, the plugin detects empty attributes and excludes it by default.
     * [dialog, algorithm] Optionally calculate motion attributes (track points indices, distance, speed, duration and elevation_diff) between track points.
     * [algorithm] Second algorithm 'Track segment creator' to apply line segment creator to any point vector dataset that has a timestamp attribute.
 
-tracker=https://github.com/SGroe/gpx-segment-importer/issues
-repository=https://github.com/SGroe/gpx-segment-importer
+tracker=https://github.com/Murmele/qgis-igc-importer/issues
+repository=https://github.com/Murmele/qgis-igc-importer
 # End of mandatory metadata
 
 # Recommended items:
 
-changelog=2.5 (2019-12-20)
-    - Add track point indices to motion attributes
-    - Process all track segments if more than 1 is available in GPX file
-    - [Bug] Set duration to 0 instead of None if timestamps are equal
-    2.4 (2019-08-12)
-    - Create 3D-geometries if elevation tag is available in GPX file or track layer
-    - Calculate elevation_diff attribute if elevation tag is available in GPX file or track layer
-    2.3 (2019-03-04)
-    - Iterate over all track points to find attributes
-    - Use algorithm output to show number of created and skipped segments
-    - German translation
-    2.2 (2018-11-27)
-    - Add new algorithm 'Track segment creator'
-    - Add warning if track points with equal coordinates prevent creating segments
-    - Remove option to use EPSG:4326
-    - Deprecate 'GPX segment importer' dialog (use algorithm instead)
-    - Bug fixes
-    2.1 (2018-02-20)
-    - Importer added as QgisAlgorithm to enable usage in processing
-    - QGIS3 API adjustments related to QMessageBar
-    2.0 -qgis3 (2018-02-01)
-    - Support for QGIS3
-    - Use of message and progress bar
-    1.4 -qgis2 (2018-02-01)
-    - Use of message and progress bar
-    1.3 (2018-01-15)
-    - Write track layer in GeoPackage instead of ESRI Shapefile
-    - Store last input/output directory in QGIS settings
-    - Optionally calculate duration between track points
-    1.2 (2017-12-21)
-    - Option to add attributes from start/end/both track point(s)
-    - Optionally calculate distance and speed between track points
-    1.1 (2017-12-19)
-    - New SVG icon
-    - Improved boolean handling
-    1.0 (2017-12-18)
+changelog=1.0 (2021-02-21)
     - Initial release
 
 # Tags are comma separated with spaces allowed
-tags=gpx,gps,segment,importer
+tags=igc,gps,segment,importer
 
-homepage=https://github.com/SGroe/gpx-segment-importer
+homepage=https://github.com/Murmele/qgis-igc-importer
 category=Vector
 icon=icon.svg
 # experimental flag
