@@ -3,7 +3,7 @@ QGIS Plugin
 
 This repository contains the source code for the plugin.
 
-This plugin base on Simon Goe's work (https://github.com/SGroe/gpx-segment-importer)
+This plugin base on Simon Gröchenig's work (https://github.com/SGroe/gpx-segment-importer)
 
 ## Overview
 
