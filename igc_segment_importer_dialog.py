@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- GpxSegmentImporterDialog
+ IGCSegmentImporterDialog
                                  A QGIS plugin
  This plugin imports an GPX file and creates short line segments between track points
                              -------------------
@@ -26,13 +26,13 @@ import os
 from PyQt5 import QtWidgets, uic
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'gpx_segment_importer_dialog_base.ui'))
+    os.path.dirname(__file__), 'igc_segment_importer_dialog_base.ui'))
 
 
-class GpxSegmentImporterDialog(QtWidgets.QDialog, FORM_CLASS):
+class IGCSegmentImporterDialog(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
-        super(GpxSegmentImporterDialog, self).__init__(parent)
+        super(IGCSegmentImporterDialog, self).__init__(parent)
         # Set up the user interface from Designer.
         # After setupUI you can access any designer object by doing
         # self.<objectname>, and you can use autoconnect slots - see

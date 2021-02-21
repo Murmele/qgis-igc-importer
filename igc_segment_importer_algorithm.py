@@ -5,10 +5,10 @@ from qgis.core import (QgsProcessingParameterBoolean, QgsProcessingParameterEnum
                        QgsProcessingParameterFeatureSink, QgsProcessing, QgsFeatureSink, QgsProcessingOutputNumber,
                        QgsWkbTypes)
 # plugin
-from .gpx_file_reader import GpxFileReader
+from .igc_file_reader import IGCFileReader
 
 
-class GpxSegmentImporterAlgorithm(QgisAlgorithm):
+class IGCSegmentImporterAlgorithm(QgisAlgorithm):
     """This is an example algorithm that takes a vector layer and
     creates a new one just with just those features of the input
     layer that are selected.
@@ -46,7 +46,7 @@ class GpxSegmentImporterAlgorithm(QgisAlgorithm):
         self.attribute_mode_options = ['Both', 'First', 'Last']
         self.attribute_mode_options_labels = [self.tr('Both'), self.tr('First'), self.tr('Last')]
 
-        self.gpx_file_reader = GpxFileReader()
+        self.gpx_file_reader = IGCFileReader()
 
     def name(self):
         return self.alg_name

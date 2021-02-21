@@ -34,11 +34,11 @@ from PyQt5.QtGui import QIcon
 from qgis.core import QgsProcessingProvider
 # from processing.core.ProcessingConfig import Setting, ProcessingConfig
 # plugin imports
-from .gpx_segment_importer_algorithm import GpxSegmentImporterAlgorithm
+from .igc_segment_importer_algorithm import IGCSegmentImporterAlgorithm
 from .track_segment_creator_algorithm import TrackSegmentCreatorAlgorithm
 
 
-class GpxSegmentImporterProvider(QgsProcessingProvider):
+class IGCSegmentImporterProvider(QgsProcessingProvider):
 
     # MY_DUMMY_SETTING = 'MY_DUMMY_SETTING'
 
@@ -46,7 +46,7 @@ class GpxSegmentImporterProvider(QgsProcessingProvider):
         super().__init__()
 
     def id(self):
-        return "GpxSegmentImporter"
+        return "IGCSegmentImporter"
 
     def name(self):
         """This is the name that will appear on the toolbox group.
@@ -59,7 +59,7 @@ class GpxSegmentImporterProvider(QgsProcessingProvider):
     def icon(self):
         """We return the default icon.
         """
-        return QIcon(':/plugins/GpxSegmentImporter/icon.svg')
+        return QIcon(':/plugins/IGCSegmentImporter/icon.svg')
         # return QgsProcessingProvider.icon(self)
 
     # def initializeSettings(self):
@@ -72,7 +72,7 @@ class GpxSegmentImporterProvider(QgsProcessingProvider):
     #     """
     #     QgsProcessingProvider.initializeSettings(self)
     #     # ProcessingConfig.addSetting(Setting('Example algorithms',
-    #     #                                     GpxSegmentImporterProvider.MY_DUMMY_SETTING,
+    #     #                                     IGCSegmentImporterProvider.MY_DUMMY_SETTING,
     #     #                                     'Example setting', 'Default value'))
 
     def load(self):
@@ -82,7 +82,7 @@ class GpxSegmentImporterProvider(QgsProcessingProvider):
         # ProcessingConfig.addSetting(Setting(self.name(), 'ACTIVATE_EXAMPLE',
         #                                     'Activate', False))
         # ProcessingConfig.addSetting(Setting('Example algorithms',
-        #                                     GpxSegmentImporterProvider.MY_DUMMY_SETTING,
+        #                                     IGCSegmentImporterProvider.MY_DUMMY_SETTING,
         #                                     'Example setting', 'Default value'))
         # ProcessingConfig.readSettings()
         self.refreshAlgorithms()
@@ -93,7 +93,7 @@ class GpxSegmentImporterProvider(QgsProcessingProvider):
         when the plugin is unloaded.
         """
         # ProcessingConfig.removeSetting('ACTIVATE_EXAMPLE')
-        # ProcessingConfig.removeSetting(GpxSegmentImporterProvider.MY_DUMMY_SETTING)
+        # ProcessingConfig.removeSetting(IGCSegmentImporterProvider.MY_DUMMY_SETTING)
 
     def loadAlgorithms(self):
         """This method is called whenever the list of algorithms should
@@ -103,5 +103,5 @@ class GpxSegmentImporterProvider(QgsProcessingProvider):
         here.
         """
         # https://github.com/jdugge/BufferByPercentage/pull/14
-        self.addAlgorithm(GpxSegmentImporterAlgorithm())
+        self.addAlgorithm(IGCSegmentImporterAlgorithm())
         self.addAlgorithm(TrackSegmentCreatorAlgorithm())

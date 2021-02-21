@@ -1,13 +1,13 @@
 # Initialize Qt resources from file resources.py
 from qgis.core import (QgsVectorLayer, QgsField, QgsGeometry, QgsFeature, QgsPointXY, QgsVectorLayer)
 from .datatype_definition import (DataTypeDefinition, DataTypes)
-from .gpx_feature_builder import GpxFeatureBuilder
+from .igc_feature_builder import IGCFeatureBuilder
 from .geom_tools import GeomTools
 from PyQt5.QtCore import QDateTime
 
 
 class PointLayerReader:
-    """ Reads gpx files and assembles vector layers """
+    """ Reads igc files and assembles vector layers """
 
     def __init__(self):
         self.attribute_definitions = list()

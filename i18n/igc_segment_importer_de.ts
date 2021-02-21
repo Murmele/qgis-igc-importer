@@ -95,12 +95,12 @@
     <name>GpxSegmentImporterDialogBase</name>
     <message>
         <location filename="../gpx_segment_importer_dialog_base.ui" line="14"/>
-        <source>GPX Segment Importer</source>
+        <source>IGC Segment Importer</source>
         <translation>GPX Segment Importer</translation>
     </message>
     <message>
         <location filename="../gpx_segment_importer_dialog_base.ui" line="20"/>
-        <source>GPX files</source>
+        <source>IGC files</source>
         <translation>GPX Dateien</translation>
     </message>
     <message>
