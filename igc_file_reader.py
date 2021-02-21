@@ -30,11 +30,19 @@ class IGCFileReader:
             # not a b record
             return None
         time_utc = b_record[1:7]
-        latitude = b_record[7:15-1] # last is N for north
-        longitude = b_record[15:24-1] # last is E for East
+        latitude_str = b_record[7:15-1] # last is N for north / S for Sud
+        latitude_sign = b_record[14]
+        latitude = float(latitude_str[0:2]) + (float(latitude_str[2:4]) + float(latitude_str[4:7]) / 1000) / 60
+        if latitude_sign == "S":
+            latitude *= -1
+        longitude_str = b_record[15:24-1] # last is E for East/ O for Ovest
+        longitude_sign = b_record[23]
+        longitude = float(longitude_str[0:3]) + (float(longitude_str[3:5]) + float(longitude_str[5:8]) / 1000) / 60
+        if longitude_sign == "O":
+            longitude *= -1
         fix_validity = b_record[24]
-        press_alt = b_record[25:30]
-        gnss_alt = b_record[30:35]
+        press_alt = int(b_record[25:30])
+        gnss_alt = int(b_record[30:35])
 
         return {"time_utc": time_utc, 
                 "lat": latitude, 
@@ -59,8 +67,8 @@ class IGCFileReader:
                     b_record = self.parse_b_record(line)
                     if self.attribute_definitions is not None:
                         self.attribute_definitions.append(DataTypeDefinition("time_utc", DataTypes.Integer, True,b_record["time_utc"]))
-                        self.attribute_definitions.append(DataTypeDefinition("lat",DataTypes.Integer,True, b_record["lat"]))
-                        self.attribute_definitions.append(DataTypeDefinition("lon",DataTypes.Integer,True,b_record["lon"]))
+                        self.attribute_definitions.append(DataTypeDefinition("lat",DataTypes.Double,True, b_record["lat"]))
+                        self.attribute_definitions.append(DataTypeDefinition("lon",DataTypes.Double,True,b_record["lon"]))
                         self.attribute_definitions.append(DataTypeDefinition("fix_validity",DataTypes.String,True,b_record["fix_validity"]))
                         self.attribute_definitions.append(DataTypeDefinition("press_alt",DataTypes.Integer,True, b_record["press_alt"]))
                         self.attribute_definitions.append(DataTypeDefinition("gnss_alt",DataTypes.Integer,True,b_record["gnss_alt"]))
@@ -166,32 +174,16 @@ class IGCFileReader:
     def add_attributes(self, attributes, element, key_prefix):
         """ Reads and adds attributes to the feature """
 
-        if len(element) == 0:  # only elements without children
-            try:
-                # check if attribute value is available
-                if element.get('key') is not None:
-                    attribute = self._get_attribute_definition(element.get('key'))
-                    if attribute is None:
-                        return
-                    attribute.example_value = element.get('value')
-                else:
-                    attribute = self._get_attribute_definition(self.normalize(element.tag))
-                    if attribute is None:
-                        return
-                    attribute.example_value = element.text
+        for key in element:
+            attribute = self._get_attribute_definition(key)
+            if attribute is None:
+                continue
 
-                if attribute.datatype is DataTypes.Integer and DataTypes.value_is_int(attribute.example_value) or \
-                        attribute.datatype is DataTypes.Double and \
-                        DataTypes.value_is_double(attribute.example_value) or \
-                        attribute.datatype is DataTypes.String:
-                    attributes[key_prefix + attribute.attribute_key_modified] = attribute.example_value
-                elif attribute.datatype is DataTypes.Boolean and DataTypes.value_is_boolean(attribute.example_value):
-                    attributes[key_prefix + attribute.attribute_key_modified] = str(attribute.example_value)
-            except KeyError:
-                pass
-                # print('KeyError while reading attribute ' + self.normalize(extension.tag))
-        for child in element:
-            self.add_attributes(attributes, child, key_prefix)
+            if attribute.datatype is DataTypes.Integer and DataTypes.value_is_int(attribute.example_value) or \
+                attribute.datatype is DataTypes.Double and \
+                DataTypes.value_is_double(attribute.example_value) or \
+                attribute.datatype is DataTypes.String:
+                attributes[key_prefix + attribute.attribute_key_modified] = element[key]
 
     def _get_attribute_definition(self, key):
         for attribute in self.attribute_definitions:

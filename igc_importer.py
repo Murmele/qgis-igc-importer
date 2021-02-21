@@ -261,7 +261,7 @@ class IGCSegmentImporter:
     def process_gpx_files(self):
         if self.igc_files is not None and len(self.igc_files) > 0:
 
-            progress_message_bar = self.iface.messageBar().createMessage("Create gpx segments...")
+            progress_message_bar = self.iface.messageBar().createMessage("Create igc segments...")
             progress = QtWidgets.QProgressBar()
             progress.setMaximum(len(self.igc_files))
             progress_message_bar.layout().addWidget(progress)
