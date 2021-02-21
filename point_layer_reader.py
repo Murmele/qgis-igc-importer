@@ -27,7 +27,7 @@ class PointLayerReader:
 
         return True if self.error_message == '' else False
 
-    def import_gpx_file(self, point_layer, timestamp_field, timestamp_format, attribute_select="Last",
+    def import_igc_file(self, point_layer, timestamp_field, timestamp_format, attribute_select="Last",
                         calculate_motion_attributes=False):
         """ Imports the data from the GPX file and create the vector layer """
 

@@ -111,7 +111,7 @@ class TrackSegmentCreatorAlgorithm(QgisAlgorithm):
         calculate_motion_attributes = self.parameterAsBool(parameters, self.CALCULATE_MOTION_ATTRIBUTES, context)
         # use_epsg4326 = self.parameterAsBool(parameters, self.USE_EPSG_4326, context)
 
-        layer = self.point_layer_reader.import_gpx_file(source, timestamp_field, "", attribute_mode,
+        layer = self.point_layer_reader.import_igc_file(source, timestamp_field, "", attribute_mode,
                                                         calculate_motion_attributes)
 
         if self.point_layer_reader.error_message != '':

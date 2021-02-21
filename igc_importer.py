@@ -278,7 +278,7 @@ class IGCSegmentImporter:
 
             i = 0
             for gpx_file in self.igc_files:
-                layer = self.igc_file_reader.import_gpx_file(gpx_file, self.output_directory, attribute_select,
+                layer = self.igc_file_reader.import_igc_file(gpx_file, self.output_directory, attribute_select,
                                                              use_wgs84, calculate_motion_attributes, overwrite)
                 if layer is not None:
                     QgsProject.instance().addMapLayer(layer)

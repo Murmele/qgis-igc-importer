@@ -93,7 +93,7 @@ class IGCSegmentImporterAlgorithm(QgisAlgorithm):
         calculate_motion_attributes = self.parameterAsBool(parameters, self.CALCULATE_MOTION_ATTRIBUTES, context)
         use_epsg4326 = True  # self.parameterAsBool(parameters, self.USE_EPSG_4326, context)
 
-        layer = self.gpx_file_reader.import_gpx_file(input_file, None, attribute_mode, use_epsg4326,
+        layer = self.gpx_file_reader.import_igc_file(input_file, None, attribute_mode, use_epsg4326,
                                                      calculate_motion_attributes, False)
 
         if self.gpx_file_reader.error_message != '':
