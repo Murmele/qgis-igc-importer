@@ -26,7 +26,9 @@ class IGCFileReader:
 
         definitions = []
 
-        if b_record[0] != "B" or len(b_record) != 36: # 35 + \n
+        # https://xp-soaring.github.io/igc_file_format/igc_format_2008.html#link_FXA
+        # only the first 35 bytes are recognized
+        if b_record[0] != "B" or len(b_record) < 36: # 35 + \n
             # not a b record
             return None
         time_utc = b_record[1:7]
@@ -65,7 +67,7 @@ class IGCFileReader:
                 if len(line) > 0 and line[0] == "B":
                     # B record
                     b_record = self.parse_b_record(line)
-                    if self.attribute_definitions is not None:
+                    if self.attribute_definitions is not None and b_record is not None:
                         self.attribute_definitions.append(DataTypeDefinition("time_utc", DataTypes.Integer, True,b_record["time_utc"]))
                         self.attribute_definitions.append(DataTypeDefinition("lat",DataTypes.Double,True, b_record["lat"]))
                         self.attribute_definitions.append(DataTypeDefinition("lon",DataTypes.Double,True,b_record["lon"]))
