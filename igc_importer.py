@@ -197,7 +197,7 @@ class IGCSegmentImporter:
     def select_igc_files(self):
         # Get IGC files
         self.igc_files = QtWidgets.QFileDialog.getOpenFileNames(self.dlg, "Select IGC files ...",
-                                                                self.gpx_directory_default, 'IGC tracks (*.IGC)',
+                                                                self.gpx_directory_default, 'IGC tracks (*.IGC *.igc)',
                                                                 options=QtWidgets.QFileDialog.ReadOnly)[0]
         if len(self.igc_files) == 1:
             self.dlg.txtSelectedFiles.setText(str(os.path.basename(self.igc_files[0])))
