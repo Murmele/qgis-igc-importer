@@ -10,7 +10,7 @@
 name=IGC Importer
 qgisMinimumVersion=3.0
 description=This plugin imports an IGC file and creates short line segments between the track points
-version=1.0
+version=1.1
 author=Martin Marmsoler
 email=martin.marmsoler@gmail.com
 
@@ -32,6 +32,10 @@ repository=https://github.com/Murmele/qgis-igc-importer
 
 changelog=1.0 (2021-02-21)
     - Initial release
+
+changelog=1.1 (2021-04-03)
+    - Handle also IGC files with more than 35 Bytes in the B-record
+    - Filter also for *.igc files and not only *.IGC
 
 # Tags are comma separated with spaces allowed
 tags=igc,gps,segment,importer
