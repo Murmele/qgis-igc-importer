@@ -30,10 +30,11 @@ repository=https://github.com/Murmele/qgis-igc-importer
 
 # Recommended items:
 
-changelog=1.0 (2021-02-21)
+changelog=
+    1.0 (2021-02-21)
     - Initial release
 
-changelog=1.1 (2021-04-03)
+    1.1 (2021-04-03)
     - Handle also IGC files with more than 35 Bytes in the B-record
     - Filter also for *.igc files and not only *.IGC
 
