@@ -37,10 +37,10 @@ class IGCFileReader:
         latitude = float(latitude_str[0:2]) + (float(latitude_str[2:4]) + float(latitude_str[4:7]) / 1000) / 60
         if latitude_sign == "S":
             latitude *= -1
-        longitude_str = b_record[15:24-1] # last is E for East/ O for Ovest
+        longitude_str = b_record[15:24-1] # last is E for East/ W for West
         longitude_sign = b_record[23]
         longitude = float(longitude_str[0:3]) + (float(longitude_str[3:5]) + float(longitude_str[5:8]) / 1000) / 60
-        if longitude_sign == "O":
+        if longitude_sign == "W":
             longitude *= -1
         fix_validity = b_record[24]
         press_alt = int(b_record[25:30])
