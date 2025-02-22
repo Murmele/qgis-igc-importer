@@ -67,13 +67,13 @@ class TrackSegmentCreatorAlgorithm(QgisAlgorithm):
         #                                                       [QgsProcessing.TypeVectorLine]))
         self.addParameter(QgsProcessingParameterFeatureSource(self.INPUT,
                                                               self.tr('Input point layer'),
-                                                              [QgsProcessing.TypeVectorPoint],
+                                                              [QgsProcessing.SourceType.TypeVectorPoint],
                                                               None, False))
         self.addParameter(QgsProcessingParameterField(self.TIMESTAMP_FIELD,
                                                       self.tr('Timestamp field'),
                                                       parentLayerParameterName=self.INPUT,
                                                       # type=QgsProcessingParameterField.Any))
-                                                      type=QgsProcessingParameterField.DateTime))
+                                                      type=QgsProcessingParameterField.DataType.DateTime))
         # self.addParameter(QgsProcessingParameterString(self.TIMESTAMP_FIELD,
         #                                                self.tr('Timestamp field'),
         #                                                None, False, False))
@@ -95,7 +95,7 @@ class TrackSegmentCreatorAlgorithm(QgisAlgorithm):
 
         # We add a vector layer as output
         self.addParameter(QgsProcessingParameterFeatureSink(self.OUTPUT, self.tr('Track segments'),
-                                                            QgsProcessing.TypeVectorLine))
+                                                            QgsProcessing.SourceType.TypeVectorLine))
 
         self.addOutput(QgsProcessingOutputNumber(self.OUTPUT_SEGMENT_COUNT, self.tr('Number of segments')))
         self.addOutput(QgsProcessingOutputNumber(self.OUTPUT_TRACK_POINT_COUNT, self.tr('Number of track points')))
@@ -118,7 +118,7 @@ class TrackSegmentCreatorAlgorithm(QgisAlgorithm):
             feedback.reportError(self.point_layer_reader.error_message, True)
 
         (sink, dest_id) = self.parameterAsSink(parameters, self.OUTPUT, context,
-                                               layer.fields(), QgsWkbTypes.LineString, layer.sourceCrs())
+                                               layer.fields(), QgsWkbTypes.Type.LineString, layer.sourceCrs())
 
         total = 100.0 / layer.featureCount() if layer.featureCount() else 0
 
@@ -128,7 +128,7 @@ class TrackSegmentCreatorAlgorithm(QgisAlgorithm):
                 break
 
             # Add a feature in the sink
-            sink.addFeature(f, QgsFeatureSink.FastInsert)
+            sink.addFeature(f, QgsFeatureSink.Flag.FastInsert)
 
             # Update the progress bar
             feedback.setProgress(int(current * total))

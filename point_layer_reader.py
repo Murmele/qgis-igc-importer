@@ -3,7 +3,7 @@ from qgis.core import (QgsVectorLayer, QgsField, QgsGeometry, QgsFeature, QgsPoi
 from .datatype_definition import (DataTypeDefinition, DataTypes)
 from .igc_feature_builder import IGCFeatureBuilder
 from .geom_tools import GeomTools
-from PyQt5.QtCore import QDateTime
+from qgis.PyQt.QtCore import QDateTime
 
 
 class PointLayerReader:

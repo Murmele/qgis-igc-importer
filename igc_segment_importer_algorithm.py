@@ -63,7 +63,7 @@ class IGCSegmentImporterAlgorithm(QgisAlgorithm):
         """
 
         self.addParameter(QgsProcessingParameterFile(self.INPUT, self.tr('Input gpx file'),
-                                                     0, 'gpx', None, False))
+                                                     QgsProcessingParameterFile.Behavior.File, 'gpx', None, False))
         self.addParameter(QgsProcessingParameterEnum(self.ATTRIBUTE_MODE,
                                                      self.tr('Add attributes from which segment track point(s)'),
                                                      self.attribute_mode_options_labels, False, 2, False))
@@ -76,7 +76,7 @@ class IGCSegmentImporterAlgorithm(QgisAlgorithm):
 
         # We add a vector layer as output
         self.addParameter(QgsProcessingParameterFeatureSink(self.OUTPUT, self.tr('Track segments'),
-                                                            QgsProcessing.TypeVectorLine))
+                                                            QgsProcessing.SourceType.TypeVectorLine))
 
         self.addOutput(QgsProcessingOutputNumber(self.OUTPUT_SEGMENT_COUNT, self.tr('Number of segments')))
         self.addOutput(QgsProcessingOutputNumber(self.OUTPUT_TRACK_COUNT, self.tr('Number of tracks')))
@@ -100,7 +100,7 @@ class IGCSegmentImporterAlgorithm(QgisAlgorithm):
             feedback.reportError(self.gpx_file_reader.error_message, True)
 
         (sink, dest_id) = self.parameterAsSink(parameters, self.OUTPUT, context,
-                                               layer.fields(), QgsWkbTypes.LineString, layer.sourceCrs())
+                                               layer.fields(), QgsWkbTypes.Type.LineString, layer.sourceCrs())
 
         total = 100.0 / layer.featureCount() if layer.featureCount() else 0
 
@@ -110,7 +110,7 @@ class IGCSegmentImporterAlgorithm(QgisAlgorithm):
                 break
 
             # Add a feature in the sink
-            sink.addFeature(f, QgsFeatureSink.FastInsert)
+            sink.addFeature(f, QgsFeatureSink.Flag.FastInsert)
 
             # Update the progress bar
             feedback.setProgress(int(current * total))

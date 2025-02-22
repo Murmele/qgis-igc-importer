@@ -22,10 +22,10 @@
 """
 # Initialize Qt resources from file resources.py
 from .resources import *
-# PyQt5 imports
-from PyQt5.QtCore import QSettings, QTranslator, QCoreApplication
-from PyQt5.QtGui import QIcon
-from PyQt5 import QtWidgets
+# PyQt imports
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt import QtWidgets
 # QGIS imports
 from qgis.core import Qgis, QgsProject, QgsApplication
 # Plugin classes
@@ -198,7 +198,7 @@ class IGCSegmentImporter:
         # Get IGC files
         self.igc_files = QtWidgets.QFileDialog.getOpenFileNames(self.dlg, "Select IGC files ...",
                                                                 self.gpx_directory_default, 'IGC tracks (*.IGC *.igc)',
-                                                                options=QtWidgets.QFileDialog.ReadOnly)[0]
+                                                                options=QtWidgets.QFileDialog.Option.ReadOnly)[0]
         if len(self.igc_files) == 1:
             self.dlg.txtSelectedFiles.setText(str(os.path.basename(self.igc_files[0])))
         else:
@@ -221,7 +221,7 @@ class IGCSegmentImporter:
         if self.output_directory is None:
             self.output_directory = QtWidgets.QFileDialog.getExistingDirectory(self.dlg, "Output directory",
                                                                                self.output_directory_default,
-                                                                               options=QtWidgets.QFileDialog.ReadOnly)
+                                                                               options=QtWidgets.QFileDialog.Option.ReadOnly)
             if os.path.exists(self.output_directory):
                 self.dlg.txtOutputDirectory.setText(str(self.output_directory))
                 self.dlg.btnOutputDirectory.setText('Remove output directory')
@@ -253,7 +253,7 @@ class IGCSegmentImporter:
         # show the dialog
         self.dlg.show()
         # Run the dialog event loop
-        result = self.dlg.exec_()
+        result = self.dlg.exec()
         # See if OK was pressed
         if result:
             self.process_gpx_files()
@@ -265,7 +265,7 @@ class IGCSegmentImporter:
             progress = QtWidgets.QProgressBar()
             progress.setMaximum(len(self.igc_files))
             progress_message_bar.layout().addWidget(progress)
-            self.iface.messageBar().pushWidget(progress_message_bar, Qgis.Info)
+            self.iface.messageBar().pushWidget(progress_message_bar, Qgis.MessageLevel.Info)
 
             overwrite = False
             use_wgs84 = True  # if self.dlg.chkUseWgs84.isChecked() else False
@@ -293,7 +293,7 @@ class IGCSegmentImporter:
                 if self.igc_file_reader.equal_coordinates > 0:
                     self.iface.messageBar().pushMessage("Error", 'Cannot create ' +
                                                         str(self.igc_file_reader.equal_coordinates) +
-                                                        ' segments because of equal coordinates', level=Qgis.Warning)
+                                                        ' segments because of equal coordinates', level=Qgis.MessageLevel.Warning)
 
                 if self.igc_file_reader.error_message != '':
                     self.iface.messageBar().pushMessage("Error", self.igc_file_reader.error_message,
